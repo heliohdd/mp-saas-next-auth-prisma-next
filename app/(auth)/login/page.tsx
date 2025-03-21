@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export default async function LoginPage() {
   return (
@@ -34,11 +34,10 @@ export default async function LoginPage() {
         </CardContent>
       </Card>
       <p className="text-sm text-muted-foreground mt-3">
-        Não possui cadastro?{' '}
+        Não possui cadastro?{" "}
         <Link className="text-gray-800 hover:underline" href="/cadastro">
-          Registre-se
+          Registre-se.
         </Link>
-        .
       </p>
     </>
   );
