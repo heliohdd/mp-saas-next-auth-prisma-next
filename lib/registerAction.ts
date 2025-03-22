@@ -1,6 +1,7 @@
 "use server";
 
 import db from "@/lib/db";
+import { hashSync } from "bcrypt-ts";
 
 export default async function registerAction(formData: FormData) {
   const entries = Array.from(formData.entries());
@@ -19,13 +20,18 @@ export default async function registerAction(formData: FormData) {
   }
 
   // Se um usuário já existir, retornar erro
+  const user = await db.user.findUnique({ where: { email: data.email } });
+
+  if (user) {
+    throw new Error("Usuário já existe.");
+  }
 
   // Se usuário não existir no banco de dados criar novo usuário
   await db.user.create({
     data: {
       name: data.name,
       email: data.email,
-      password: data.password,
+      password: hashSync(data.password),
     },
   });
 }
