@@ -3,7 +3,10 @@
 import db from "@/lib/db";
 import { hashSync } from "bcrypt-ts";
 
-export default async function registerAction(formData: FormData) {
+export default async function registerAction(
+  _prevState: any,
+  formData: FormData
+) {
   const entries = Array.from(formData.entries());
   const data = Object.fromEntries(entries) as {
     name: string;
@@ -16,14 +19,14 @@ export default async function registerAction(formData: FormData) {
 
   // Se não tiver "Nome", "Email" ou "Senha", retornar erro
   if (!data.name || !data.email || !data.password) {
-    throw new Error("Você precisa passar todos os dados!!!");
+    return { message: "Preencha todos os campos!!!", success: false };
   }
 
   // Se um usuário já existir, retornar erro
   const user = await db.user.findUnique({ where: { email: data.email } });
 
   if (user) {
-    throw new Error("Usuário já existe.");
+    return { message: "Este usuário já existe", success: false };
   }
 
   // Se usuário não existir no banco de dados criar novo usuário
@@ -34,4 +37,6 @@ export default async function registerAction(formData: FormData) {
       password: hashSync(data.password),
     },
   });
+
+  return { message: "Usuário criado com sucesso", success: true };
 }
