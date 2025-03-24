@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import { hashSync } from "bcrypt-ts";
+import { redirect } from "next/navigation";
 
 export default async function registerAction(
   _prevState: any,
@@ -38,5 +39,5 @@ export default async function registerAction(
     },
   });
 
-  return { message: "Usuário criado com sucesso", success: true };
+  return redirect("/");
 }

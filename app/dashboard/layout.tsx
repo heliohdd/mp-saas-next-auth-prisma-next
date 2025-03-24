@@ -1,10 +1,16 @@
+import { auth } from "@/auth";
 import Navbar from "./navbar";
+import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar userName={"Fulano de Tal"} />
