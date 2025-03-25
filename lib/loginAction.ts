@@ -2,7 +2,6 @@
 
 import { signIn } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { errorMonitor } from "stream";
 
 export default async function loginAction(_prevState: any, formData: FormData) {
   try {
@@ -13,7 +12,7 @@ export default async function loginAction(_prevState: any, formData: FormData) {
       redirectTo: "/dashboard",
     });
     return { success: true };
-  } catch (e: any) {
+  } catch (e: any | unknown) {
     if (isRedirectError(e)) {
       throw e;
     }

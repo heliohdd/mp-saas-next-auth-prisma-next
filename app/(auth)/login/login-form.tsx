@@ -8,7 +8,7 @@ import Form from "next/form";
 import { useActionState } from "react";
 
 export default function LoginForm() {
-  const [state, formAction, isPending] = useActionState(loginAction, null);
+  const [state, formAction] = useActionState(loginAction, null);
   return (
     <>
       {state?.success === false && (
